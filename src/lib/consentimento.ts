@@ -18,7 +18,7 @@ export function lerConsentimento(): Escolha | null {
 /** Cookies de medição que o GTM (GA4, Meta Pixel) cria depois do aceite. */
 const COOKIES_RASTREAMENTO = /^(_ga.*|_fbp|_fbc)$/;
 
-/** Apaga os cookies de medição no host e em cada domínio pai (ex.: .quarkions.com.br). */
+/** Apaga os cookies de medição no host e em cada domínio pai (ex.: .quarkions.com). */
 function apagarCookiesRastreamento() {
   const partes = location.hostname.split(".");
   const dominios = ["", ...partes.slice(0, -1).map((_, i) => `; Domain=.${partes.slice(i).join(".")}`)];

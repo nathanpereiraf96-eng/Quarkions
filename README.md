@@ -39,12 +39,12 @@ Todas estão listadas em [`.env.example`](.env.example).
 
 1. Suba o repositório para o GitHub e importe em [vercel.com/new](https://vercel.com/new). O framework (Next.js) é detectado sozinho; não mude os comandos de build.
 2. Em *Settings → Environment Variables*, cadastre as variáveis da tabela para **Production** (e **Preview**, se quiser testar os envios lá). Marque `SUPABASE_SERVICE_ROLE_KEY` como *Sensitive*.
-3. Em `NEXT_PUBLIC_SITE_URL`, use o domínio final, por exemplo `https://quarkions.com.br`. Variáveis `NEXT_PUBLIC_*` entram no build: depois de mudar uma delas, faça um novo deploy.
+3. Em `NEXT_PUBLIC_SITE_URL`, use o domínio final, por exemplo `https://quarkions.com`. Variáveis `NEXT_PUBLIC_*` entram no build: depois de mudar uma delas, faça um novo deploy.
 4. Faça o deploy e confira a URL `*.vercel.app` gerada.
 
 ### Domínio
 
-1. Em *Settings → Domains*, adicione o domínio (ex.: `quarkions.com.br`) e também o `www`.
+1. Em *Settings → Domains*, adicione o domínio (ex.: `quarkions.com`) e também o `www`.
 2. No provedor do domínio (Registro.br, por exemplo), crie os registros DNS que a Vercel mostrar — normalmente um registro `A` no domínio raiz apontando para o IP indicado e um `CNAME` em `www` apontando para `cname.vercel-dns.com`.
 3. Escolha qual versão é a principal (com ou sem `www`) e deixe a outra redirecionando. Ela precisa ser igual à `NEXT_PUBLIC_SITE_URL`.
 4. O certificado HTTPS é emitido automaticamente depois que o DNS propagar.

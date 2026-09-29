@@ -13,7 +13,7 @@ const ENTRADA = {
   nome: "Ana Maria Teste",
   cidade: "São José dos Pinhais",
   origem: "hero",
-  url: "https://quarkions.com.br/?utm_source=google",
+  url: "https://quarkions.com/?utm_source=google",
   ip: "200.1.2.3",
   userAgent: "Mozilla/5.0",
   fbp: "fb.1.123.456",

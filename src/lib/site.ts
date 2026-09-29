@@ -3,8 +3,8 @@
  */
 export const SITE = {
   nome: "Quarkions",
-  /** URL pública, sem barra no fim. Definir NEXT_PUBLIC_SITE_URL com o domínio real ({{DOMINIO}}). */
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://quarkions.com.br").replace(/\/$/, ""),
+  /** URL pública, sem barra no fim. Vem de NEXT_PUBLIC_SITE_URL. */
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://quarkions.com").replace(/\/$/, ""),
   email: "contato@quarkions.com",
   razaoSocial: "Quarkions Technology LTDA",
   cnpj: "59.819.209/0001-24",
