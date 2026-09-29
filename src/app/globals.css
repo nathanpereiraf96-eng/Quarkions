@@ -1,26 +1,198 @@
 @import "tailwindcss";
 
+/* Tokens de cor — Câmara de nuvens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --nevoa: #f2f4f8;
+  --grafite: #1b2033;
+  --grafite-suave: #5a6178;
+  --linha: #d5dae5;
+  --ultramar: #3b3bf5;
+  --ciano: #22c3d6;
+  --ambar: #f2b233;
+  --camara: #0d0f2e;
+  --camara-linha: #2a2d5c;
+
+  --ease-orbita: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Zera a paleta padrão: só as cores da marca existem */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-nevoa: var(--nevoa);
+  --color-grafite: var(--grafite);
+  --color-grafite-suave: var(--grafite-suave);
+  --color-linha: var(--linha);
+  --color-ultramar: var(--ultramar);
+  --color-ciano: var(--ciano);
+  --color-ambar: var(--ambar);
+  --color-camara: var(--camara);
+  --color-camara-linha: var(--camara-linha);
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+
+  /* Escala tipográfica (~1.25) */
+  --text-display: clamp(2.75rem, 6vw, 5.5rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 750;
+
+  --text-h2: clamp(2rem, 3.6vw, 3.25rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 650;
+
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.5;
+  --text-lead--font-weight: 400;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+
+  /* Largura máxima de texto corrido: max-w-texto */
+  --container-texto: 68ch;
+  --container-site: 1240px;
+
+  /* Raios com hierarquia */
+  --radius-botao: 10px;
+  --radius-painel: 20px;
+  --radius-pilula: 999px;
+
+  --ease-orbita: var(--ease-orbita);
+
+  /* Header: navegação completa a partir de 900px */
+  --breakpoint-nav: 900px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Container do site: 1240px, padding 20px (mobile) / 40px (desktop) */
+@utility container-site {
+  width: 100%;
+  max-width: calc(var(--container-site) + 2 * 40px);
+  margin-inline: auto;
+  padding-inline: 20px;
+  @variant lg {
+    padding-inline: 40px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Grid de 12 colunas, gutter 24px */
+@utility grid-site {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+@utility nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--nevoa);
+    color: var(--grafite);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    text-align: left;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ultramar);
+    outline-offset: 3px;
+  }
+
+  /* Ultramar sobre camara não atinge 3:1; em fundo escuro o foco é branco. */
+  [data-tema="escuro"] :focus-visible,
+  .foco-claro :focus-visible {
+    outline-color: #ffffff;
+  }
+}
+
+/* Entrada do hero (o único momento orquestrado de carregamento).
+   Em CSS para não esperar a hidratação: o texto é o LCP da página. */
+@keyframes hero-linha {
+  from {
+    transform: translateY(115%);
+  }
+}
+@keyframes hero-aparece {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes hero-painel {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+.hero-linha {
+  animation: hero-linha 0.9s var(--ease-orbita) both;
+}
+.hero-texto {
+  animation: hero-aparece 0.45s var(--ease-orbita) 0.7s both;
+}
+.hero-painel {
+  animation: hero-painel 0.45s var(--ease-orbita) 0.9s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-linha,
+  .hero-texto,
+  .hero-painel {
+    animation: none;
+  }
+}
+
+/* Aviso de cookies: entra por CSS; escondido quando a página carregou com escolha salva. */
+@keyframes banner-sobe {
+  from {
+    transform: translateY(100%);
+  }
+}
+.banner-cookies {
+  animation: banner-sobe 0.3s var(--ease-orbita) both;
+}
+html[data-consentimento-inicial] .banner-cookies {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .banner-cookies {
+    animation: none;
+  }
+}
+
+/* Indicador "digitando" da simulação */
+@keyframes digitando {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
